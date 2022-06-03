@@ -1,5 +1,6 @@
 import React from 'react'
 import Question from '../components/Question.js'
+import { nanoid } from 'nanoid'
 
 export default function GamePage() {
     const [questionsArray, setQuestionsArray] = React.useState([])
@@ -13,7 +14,12 @@ export default function GamePage() {
     function questionElements() {
         return (
             questionsArray.map(el => {
-                return <Question question={el.question} answers={[el.correct_answer, ...el.incorrect_answers]} />
+                return <Question
+                        question={el.question}
+                        answers={[el.correct_answer, ...el.incorrect_answers]}
+                        correctAnswer={el.correct_answer}
+                        key={nanoid()}
+                    />
             })
         )
     }
@@ -21,6 +27,8 @@ export default function GamePage() {
     return (
         <div>
             {questionElements()}
+            <hr />
+            <button >Check Answers</button>
         </div>
     )
 }
