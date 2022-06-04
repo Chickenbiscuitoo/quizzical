@@ -27,7 +27,7 @@ export default function GamePage() {
     }
 
     function handleClick() {
-        setCheck(prevCheck => !prevCheck)
+        setCheck(true)
     }
     
     return (

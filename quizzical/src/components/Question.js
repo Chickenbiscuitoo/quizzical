@@ -16,8 +16,19 @@ export default function Question(props) {
                 answer: event.target.value
             }
         })
+    }
 
-        console.log(formData)
+    function doChangeBcg(answer) {
+        // console.log(`ANSWER: ${answer}`)
+        // console.log(`SELECTED ANSWER: ${formData.answer}`)
+        // console.log(`CORRECT ANSWER: ${formData.correctAnswer}`)
+        if (answer === formData.correctAnswer) {
+            return {backgroundColor: 'green'}
+        } else if (formData.answer === answer && answer !== formData.correctAnswer) {
+            return {backgroundColor: 'red'}
+        } else {
+            return {backgroundColor: 'transparent'}
+        }
     }
 
     function displayAnswers() {
@@ -40,8 +51,8 @@ export default function Question(props) {
         } else {
             return (
                 props.answers.map(answer => (
-                    <>
-                        <input
+                    <div style={doChangeBcg(answer)}>
+                        <input 
                             type='radio'
                             value={he.decode(answer)}
                             id={answer}
@@ -50,7 +61,7 @@ export default function Question(props) {
                             checked={formData.answer === he.decode(answer)}
                         />
                         <label htmlFor={answer}>{he.decode(answer)}</label>
-                    </>
+                    </div>
                 ))
             )
         }
