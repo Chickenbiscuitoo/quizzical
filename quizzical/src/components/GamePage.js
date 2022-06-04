@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 
 export default function GamePage() {
     const [questionsArray, setQuestionsArray] = React.useState([])
+    const [check, setCheck] = React.useState(false)
     
     React.useEffect(() => {
         fetch("https://opentdb.com/api.php?amount=10&type=multiple")
@@ -18,17 +19,22 @@ export default function GamePage() {
                         question={el.question}
                         answers={[el.correct_answer, ...el.incorrect_answers]}
                         correctAnswer={el.correct_answer}
+                        check={check}
                         key={nanoid()}
                     />
             })
         )
+    }
+
+    function handleClick() {
+        setCheck(prevCheck => !prevCheck)
     }
     
     return (
         <div>
             {questionElements()}
             <hr />
-            <button >Check Answers</button>
+            <button onClick={handleClick} >Check Answers</button>
         </div>
     )
 }
